@@ -79,11 +79,12 @@ The app follows a clean layered structure:
 
 ### Frontend
 
-Clone repository:
-git clone https://github.com/dausenm/eventeny_app
-cd eventeny_app
-flutter pub get
-flutter run
+**Clone repository:**
+
+- `git clone https://github.com/dausenm/eventeny_app`
+- `cd eventeny_app`
+- `flutter pub get`
+- `flutter run`
 
 ---
 
