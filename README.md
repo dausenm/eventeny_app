@@ -7,8 +7,8 @@ This is a full-stack event ticket purchasing mobile application built for the Ev
 ### Project Structure
 
 This project consists of two separate repositories:
-- Frontend (Flutter Mobile App) - [LINK]
-- Backend (PHP API + MySQL Database) - [LINK]
+- Frontend (Flutter Mobile App) - [https://github.com/dausenm/eventeny_app]
+- Backend (PHP API + MySQL Database) - [https://github.com/dausenm/eventeny_backend]
 
 The backend is hosted on Railway with the backend repository to simplify the deployment of PHP services.
 
@@ -50,7 +50,8 @@ The backend is hosted on Railway with the backend repository to simplify the dep
 - `events (id, name, date, location, description, image_url)`
 - `tickets (id, event_id, type, price, quantity_available)`
 - `purchases (id, name, email, created_at)`
-- `purchase_items (id, purchase_id, ticket_id, event_id, quantity, price)` # Note: event_id is not being used here. Railway will not allow me to remove the column after creating the table.
+- `purchase_items (id, purchase_id, ticket_id, event_id, quantity, price)`
+# Note: event_id is not being used here. Railway will not allow me to remove the column after creating the table.
 
 ---
 
@@ -79,7 +80,7 @@ The app follows a clean layered structure:
 ### Frontend
 
 Clone repository:
-git clone <repo-url> CHANGE THIS TO ACTUAL REPO URL ---------------------------------------------------------------------------------------------
+git clone https://github.com/dausenm/eventeny_app
 cd eventeny_app
 flutter pub get
 flutter run
