@@ -5,6 +5,8 @@ class ConfirmationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Order Confirmed"),
@@ -30,10 +32,15 @@ class ConfirmationScreen extends StatelessWidget {
               ),
               const SizedBox(height: 32),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: theme.cardColor,
+                  foregroundColor: theme.textTheme.bodyMedium?.color,
+                  textStyle: theme.textTheme.bodyMedium,
+                ),
+                child: const Text("Back to Home"),
                 onPressed: () {
                   Navigator.popUntil(context, ModalRoute.withName('/'));
                 },
-                child: const Text("Back to Home"),
               ),
             ],
           ),

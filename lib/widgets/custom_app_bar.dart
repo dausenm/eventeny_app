@@ -10,13 +10,24 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+
     return AppBar(
+      backgroundColor: theme.appBarTheme.backgroundColor,
+      foregroundColor: theme.appBarTheme.foregroundColor,
       title: titleWidget,
       actions: [
         IconButton(
-          icon: const Icon(Icons.home),
+          icon: const Icon(Icons.settings),
+          tooltip: 'Settings',
           onPressed: () {
-            // Invalidate providers to refresh data
+            Navigator.pushNamed(context, '/settings');
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.home),
+          tooltip: 'Home',
+          onPressed: () {
             ref.invalidate(eventListProvider);
             ref.invalidate(ticketsProvider);
             Navigator.of(
@@ -26,6 +37,7 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
         ),
         IconButton(
           icon: const Icon(Icons.shopping_cart),
+          tooltip: 'Cart',
           onPressed: () {
             Navigator.pushNamed(context, '/cart');
           },

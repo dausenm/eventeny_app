@@ -5,22 +5,28 @@ class CustomFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Container(
-      color: Color(
-        0xFF00C2C2,
-      ), // Light neutral background (or match brand color if you want)
+      color: theme.appBarTheme.backgroundColor,
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             "© 2025 Dausen Mason",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: theme.textTheme.bodyLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: theme.appBarTheme.foregroundColor,
+            ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
             "Demo App for Event Ticket Booking",
-            style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: theme.appBarTheme.foregroundColor,
+            ),
           ),
         ],
       ),

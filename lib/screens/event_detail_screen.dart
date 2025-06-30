@@ -9,6 +9,7 @@ import '../providers/ticket_quantity_provider.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_footer.dart';
 import '../widgets/event_image_widget.dart';
+import '../utils/date_formatter.dart';
 
 class EventDetailsScreen extends ConsumerWidget {
   final Event event;
@@ -20,11 +21,16 @@ class EventDetailsScreen extends ConsumerWidget {
     final ticketsAsyncValue = ref.watch(ticketsProvider(event.id));
     final ticketQuantities = ref.watch(ticketQuantityProvider);
 
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Scaffold(
       appBar: CustomAppBar(
         titleWidget: Text(
           event.name,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          style: theme.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       bottomNavigationBar: const CustomFooter(),
@@ -38,10 +44,20 @@ class EventDetailsScreen extends ConsumerWidget {
                 heroTag: 'eventImage_${event.id}',
               ),
               const SizedBox(height: 16),
-              Text(event.description, style: const TextStyle(fontSize: 16)),
+              Text(
+                formatDateTime(event.date),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.secondary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(event.description, style: theme.textTheme.bodyLarge),
               const SizedBox(height: 20),
+
               ...tickets.map((ticket) {
+                final isSoldOut = ticket.quantityAvailable == 0;
                 return Card(
+                  color: theme.cardColor,
                   margin: const EdgeInsets.symmetric(vertical: 8),
                   child: Padding(
                     padding: const EdgeInsets.all(16),
@@ -50,21 +66,23 @@ class EventDetailsScreen extends ConsumerWidget {
                       children: [
                         Text(
                           '${ticket.type} - \$${ticket.price.toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontSize: 16,
+                          style: theme.textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.bold,
+                            color: colorScheme.onSurface,
                           ),
                         ),
                         const SizedBox(height: 8),
-                        Text('${ticket.quantityAvailable} available'),
+                        Text(
+                          '${ticket.quantityAvailable} available',
+                          style: theme.textTheme.bodyMedium,
+                        ),
                         const SizedBox(height: 16),
-                        ticket.quantityAvailable == 0
-                            ? const Text(
+                        isSoldOut
+                            ? Text(
                               "Out of stock",
-                              style: TextStyle(
+                              style: theme.textTheme.bodyLarge?.copyWith(
                                 color: Colors.red,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16,
                               ),
                             )
                             : QuantitySelector(
@@ -83,6 +101,11 @@ class EventDetailsScreen extends ConsumerWidget {
               }),
               const SizedBox(height: 20),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: theme.cardColor,
+                  foregroundColor: theme.textTheme.bodyMedium?.color,
+                  textStyle: theme.textTheme.bodyMedium,
+                ),
                 child: const Text("Add to Cart"),
                 onPressed:
                     ticketQuantities.values.any((qty) => qty > 0)
@@ -104,7 +127,6 @@ class EventDetailsScreen extends ConsumerWidget {
                                   );
                             }
                           }
-                          // Clear quantities after adding to cart
                           ref.read(ticketQuantityProvider.notifier).clear();
 
                           ScaffoldMessenger.of(context).showSnackBar(

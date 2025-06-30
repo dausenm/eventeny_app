@@ -9,6 +9,8 @@ class CartScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cart = ref.watch(cartProvider);
     final cartNotifier = ref.read(cartProvider.notifier);
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     double total = cart.fold(
       0,
@@ -21,6 +23,7 @@ class CartScreen extends ConsumerWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.delete_forever),
+            tooltip: "Clear Cart",
             onPressed: () {
               if (cart.isNotEmpty) {
                 showDialog(
@@ -60,6 +63,7 @@ class CartScreen extends ConsumerWidget {
                 itemBuilder: (context, index) {
                   final item = cart[index];
                   return Card(
+                    color: theme.cardColor,
                     margin: const EdgeInsets.symmetric(vertical: 8),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
@@ -68,14 +72,14 @@ class CartScreen extends ConsumerWidget {
                         children: [
                           Text(
                             item.eventName,
-                            style: const TextStyle(
-                              fontSize: 16,
+                            style: theme.textTheme.bodyLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           const SizedBox(height: 8),
                           Text(
                             "${item.ticketType} — \$${item.price.toStringAsFixed(2)}",
+                            style: theme.textTheme.bodyMedium,
                           ),
                           const SizedBox(height: 8),
                           Row(
@@ -103,7 +107,7 @@ class CartScreen extends ConsumerWidget {
                               const Spacer(),
                               IconButton(
                                 icon: const Icon(Icons.delete),
-                                color: Colors.red,
+                                color: colorScheme.error,
                                 onPressed:
                                     () => cartNotifier.removeFromCart(item),
                               ),
@@ -120,21 +124,20 @@ class CartScreen extends ConsumerWidget {
               ? null
               : Container(
                 padding: const EdgeInsets.all(16),
-                color: Color(0xFF00C2C2),
+                color: theme.cardColor,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "Total: \$${total.toStringAsFixed(2)}",
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        color: theme.textTheme.titleLarge?.color,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        foregroundColor: Color(0xFF00C2C2),
+                        backgroundColor: theme.appBarTheme.foregroundColor,
                       ),
                       onPressed:
                           () => Navigator.pushNamed(context, '/checkout'),

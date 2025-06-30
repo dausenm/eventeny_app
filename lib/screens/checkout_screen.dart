@@ -6,6 +6,7 @@ import '../exceptions/api_exception.dart';
 import '../viewmodels/checkout_viewmodel.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_footer.dart';
+import '../utils/app_themes.dart';
 
 class CheckoutScreen extends ConsumerStatefulWidget {
   @override
@@ -21,6 +22,7 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     final cart = ref.watch(cartProvider);
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: CustomAppBar(titleWidget: Text("Checkout")),
@@ -50,10 +52,27 @@ class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _isSubmitting ? null : () => _submitOrder(cart),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: theme.appBarTheme.foregroundColor,
+                  foregroundColor: theme.appBarTheme.backgroundColor,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  textStyle: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
+                ),
                 child:
                     _isSubmitting
-                        ? CircularProgressIndicator(color: Colors.white)
-                        : Text("Confirm Purchase"),
+                        ? SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Theme.of(context).colorScheme.onPrimary,
+                            ),
+                            strokeWidth: 2,
+                          ),
+                        )
+                        : const Text("Confirm Purchase"),
               ),
             ],
           ),
