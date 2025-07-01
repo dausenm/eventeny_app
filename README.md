@@ -146,7 +146,7 @@ Hosted on railway. My API service in the frontend interfaces with the backend Ra
     - Error handling with user-friendly messages
 
 ### Next Steps
-  - Implement user authentication
+  - Implement user authentication.
   - Create an organizer panel that allows organizers to create events and view / modify their events.
   - Expand home screen filter / sort features.
   - Implement Stripe / some other payment processor.
@@ -158,7 +158,7 @@ Hosted on railway. My API service in the frontend interfaces with the backend Ra
     - I would research backend hosting providers more extensively upfront. After starting on InfinityFree (which blocked remote database API access), I migrated to Railway, which was better but introduced its own limitations — particularly, lack of SQL schema support, manual table management, and no ability to drop columns. This limited my ability to fully automate database migrations and schema updates. In a real production scenario, I would prioritize a more flexible managed backend (such as Supabase, PlanetScale, or Firebase) that provides better developer experience, stronger admin tooling, and more reliable database manipulation.
 
 - If this project was larger scale, I probably would have used Bloc for state management.
-  - Bloc seems to be more robust for more complex state management, and it seems like it would scale more efficiently
+  - Bloc seems to be more robust for more complex state management, and it seems like it would scale more efficiently.
 
 - Separate code more cleanly
   - While this project is far ahead of my other projects in terms of organization, I think there are some instances where abstraction and separation of concerns could be stepped up. One example of this is my event_details_screen.dart file, which has a lot going on.
