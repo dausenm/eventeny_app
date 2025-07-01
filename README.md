@@ -46,9 +46,11 @@ The backend is hosted on Railway with the backend repository to simplify the dep
 ## User Flow
 
   - When the user launches the app, they load into the home screen, which displays a list of events pulled from a remote database.
+
   ![Home Screen](assets/readme/homescreen.png)
 
   - From the home screen, we can search for a specific event, open the settings, click the home button (which refreshes events), and view the cart.
+
   ![Search](assets/readme/search.png)
   
   ![Settings Screen](assets/readme/settingsscreen.png)
@@ -56,12 +58,15 @@ The backend is hosted on Railway with the backend repository to simplify the dep
   ![Cart Screen](assets/readme/emptycart.png)
 
   - We can select an event to open a details page, which shows a description of the event, date and time, and what tickets are available.
+
   ![Detail Screen](assets/readme/detailscreen.png)
 
   - Once adding tickets to the cart, we can go to our cart and check out.
+
   ![Cart Screen](assets/readme/cartscreen.png)
 
   - After checking out, we are shown a confirmation screen and prompted to return to the home screen.
+  
   ![Confirmation Screen](assets/readme/confirmationscreen.png)
 
 
