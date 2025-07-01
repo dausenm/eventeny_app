@@ -6,7 +6,6 @@ import '../exceptions/api_exception.dart';
 import '../viewmodels/checkout_viewmodel.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_footer.dart';
-import '../utils/app_themes.dart';
 
 class CheckoutScreen extends ConsumerStatefulWidget {
   @override

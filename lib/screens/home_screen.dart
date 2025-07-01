@@ -5,6 +5,7 @@ import 'event_detail_screen.dart';
 import '../widgets/custom_app_bar.dart';
 import '../widgets/custom_footer.dart';
 import '../viewmodels/filtered_event_viewmodel.dart';
+import '../exceptions/no_internet_exception.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -92,9 +93,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             ),
                           ),
               loading: () => const Center(child: CircularProgressIndicator()),
-              error:
-                  (error, stack) =>
-                      Center(child: Text('Error: ${error.toString()}')),
+              error: (error, _) {
+                if (error is NoInternetException) {
+                  return const Center(
+                    child: Text(
+                      'No internet connection.\nPlease check your network settings and try again.',
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                } else {
+                  return Center(child: Text('Error: ${error.toString()}'));
+                }
+              },
             ),
           ),
         ],

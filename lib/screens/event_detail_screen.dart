@@ -27,7 +27,7 @@ class EventDetailsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: CustomAppBar(
         titleWidget: Text(
-          event.name,
+          ' ',
           style: theme.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
           ),
@@ -39,6 +39,13 @@ class EventDetailsScreen extends ConsumerWidget {
           return ListView(
             padding: const EdgeInsets.all(16),
             children: [
+              Text(
+                event.name,
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: theme.textTheme.titleLarge?.color,
+                ),
+              ),
               EventImageWidget(
                 imageUrl: event.imageUrl,
                 heroTag: 'eventImage_${event.id}',

@@ -4,23 +4,31 @@ import '../models/event.dart';
 import '../models/ticket.dart';
 import '../models/purchase.dart';
 import '../exceptions/api_exception.dart';
+import '../exceptions/no_internet_exception.dart';
+import 'dart:io';
 
 class ApiService {
   static const String baseUrl =
       'https://eventenybackend-production.up.railway.app';
 
   Future<List<Event>> getEvents() async {
-    final response = await http.get(Uri.parse('$baseUrl/get_events.php'));
+    try {
+      final response = await http.get(Uri.parse('$baseUrl/get_events.php'));
 
-    if (response.statusCode == 200) {
-      try {
-        final List<dynamic> data = jsonDecode(response.body);
-        return data.map((json) => Event.fromJson(json)).toList();
-      } catch (e) {
-        throw ApiException("parsing_error", "Failed to parse event data.");
+      if (response.statusCode == 200) {
+        try {
+          final List<dynamic> data = jsonDecode(response.body);
+          return data.map((json) => Event.fromJson(json)).toList();
+        } catch (e) {
+          throw ApiException("parsing_error", "Failed to parse event data.");
+        }
+      } else {
+        throw ApiException("fetch_error", "Failed to load events.");
       }
-    } else {
-      throw ApiException("fetch_error", "Failed to load events.");
+    } on SocketException {
+      throw NoInternetException(); // Custom exception for offline handling
+    } catch (e) {
+      throw ApiException("unexpected_error", e.toString());
     }
   }
 

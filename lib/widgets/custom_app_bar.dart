@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/event_providers.dart';
 import '../providers/ticket_providers.dart';
+import '../viewmodels/filtered_event_viewmodel.dart';
 
 class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
   final Widget titleWidget;
@@ -29,6 +30,7 @@ class CustomAppBar extends ConsumerWidget implements PreferredSizeWidget {
           tooltip: 'Home',
           onPressed: () {
             ref.invalidate(eventListProvider);
+            ref.invalidate(filteredEventProvider(''));
             ref.invalidate(ticketsProvider);
             Navigator.of(
               context,
