@@ -128,6 +128,8 @@ The app follows a clean layered structure:
 
 Hosted on railway. My API service in the frontend interfaces with the backend Railway service.
 
+![Railway GUI](assets/readme/railway.png)
+
 ## Deployment
 
 - PHP Files hosted on Railway.
